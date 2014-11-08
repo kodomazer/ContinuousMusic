@@ -1,0 +1,16 @@
+TODO LIST:
+	- Sound generation
+		- See: Java Sound API
+	- Music Style
+		- Tempo
+		- Rhythm
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
