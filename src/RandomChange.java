@@ -9,7 +9,10 @@
 Include Measure
 
 public class RandomChange{
-	public Measure random(Measure initialMeasure) {
+	
+	
+	
+	public Measure iterate(Measure initialMeasure) {
 	  double pTempo; /* Tempo can be changed independently of others */
 	  double pToggle;
 	  double pMelody;
