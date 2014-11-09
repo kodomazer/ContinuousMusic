@@ -42,6 +42,7 @@ public class Note {
 			return out;
 		}
 		catch (InvalidMidiDataException a){
+			System.out.print("NULL POINTER EXCEPTION");
 			return null;
 		}
 	}

@@ -6,6 +6,9 @@ public class Main{
 
 	public static void main(String[] args){
 		Player play= new Player();
+		
+		play.changeCurrentMeasure(test());
+		
 		Generator gen = new Generator(test());
 		System.out.println(1);
 		playing thread1 = new playing();
@@ -13,36 +16,34 @@ public class Main{
 		System.out.println(1);
 		thread2.run(gen,play);
 		thread1.run(play);
-		while(true){}
+		while(true){}//*/
 		
 	}
 	public static Measure test(){
 		Measure out=new Measure();
-		int[] command = new int[32];
-		int[] channel = new int[32];
+		out.setTempo(50);
 		int[] key = new int[32];
-		int[] velocity= new int[32];
 		int[] tick= new int[32];
-		for(int i=0;i<32;i++){
-			if (i%2==0)
-				command[i]=0x90;
-			else
-				command[i]=0x80;
-		}
 		for(int i=0;i<16;i++){
 			key[2*i]=48+i;
 			key[2*i+1]=48+i;
 		}
-		for(int i=0;i<32;i++){
-			velocity[i]=127;
-		}
 		for (int i=0;i<16;i++){
-			tick[(i+1)/2]=i;
+			tick[i]=(i+1)/2;
 		}
 		
 		System.out.print(3);
 		for(int i=0;i<32;i++){
-			out.addNote(new Note(tick[i],channel[i],(i%2==0),key[i],velocity[i]));
+			if(i%2==0){
+				out.addNote(new Note(tick[i],1,true,key[i],127));
+				/*
+				if(i%4==0){
+					out.addNote(new Note(tick[i],9,true,48,127));
+					out.addNote(new Note(tick[i],9,false,48,64));
+				}*/
+			}
+			else
+				out.addNote(new Note(tick[i],1,false,key[i],64));
 		}
 		return out;
 	}
@@ -67,7 +68,7 @@ public class Main{
 		public void run(Generator gen,Player play){
 			
 			int num =0;
-			int cap = 1000;
+			int cap = 100;
 			while(true){
 				play.addToQueue(gen.iterate());
 				if(num==cap)break;

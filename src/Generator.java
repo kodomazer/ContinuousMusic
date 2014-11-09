@@ -49,6 +49,7 @@ public class Generator{
   	          	changeRhythm();
   	          }
   	  }
+		System.out.println("RETURNS");
   	    return initialMeasure;    
 	}
 	
@@ -57,11 +58,11 @@ public class Generator{
 		int goFaster;
 		int small = 3;
 		int big = 20;
-		double cons = .7;//consistency of tempo change. 
-		if(initialMeasure.tempo < goalTempo) {
-			goFaster =1;
+		double cons = 1;//consistency of tempo change. 
+		if(true){//initialMeasure.tempo < goalTempo) {
+			goFaster =10;
 		}else {
-			goFaster =-1;
+			//goFaster =-1;
 		}
 		if(initialMeasure.tempo == goalTempo) {
 			if(Math.random()>0.5) {

@@ -30,9 +30,11 @@ public class Measure {
 		noteList.set(index, newNote);
 	}
 	public void addNote(Note newNote) {
+		System.out.println("adding a note!");
 		noteList.addLast(newNote);
 	}//*
 	public ShortMessage messageAt(int index){
+		System.out.print("messageAtCalled");
 		return noteList.get(index).toShortMessage();
 	}//*/
 }
