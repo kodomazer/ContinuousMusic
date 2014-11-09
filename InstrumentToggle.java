@@ -1,6 +1,3 @@
-import Measure;
-import Note;
-
 public class InstruToggle{
   public static int randInt {
     // NOTE: Usually this should be a field rather than a method
@@ -22,44 +19,4 @@ public class InstruToggle{
     else {
       postToggle = True }
     }
-  
-	public Measure iterate(Measure initialMeasure) {
-	  double pTempo; /* Tempo can be changed independently of others */
-	  double pToggle;
-	  double pMelody;
-	  double pRhythm; /* Only one of these can be changed at once */
-	  double roll1;
-	  double roll2;
-	  Measure postTempo;
-	  
-	  pTempo = 0.2;
-	  pToggle = 0.25;
-	  pMelody = 0.375;
-	  pRhythm = 1 - pToggle - pMelody; /* Probablilities should sum up to 1. */
-	  roll1 = Math.rand();
-	  roll2 = Math.rand();
-	  postTempo = new Measure();
-	  
-  	  if(roll1<pTempo){
-  	      postTempo = ChangeTempo(initialMeasure);
-  	  } else { 
-  	      postTempo = initialMeasure;
-  	  }
-  	  }
-  	
-  	  if(roll2<pToggle){
-  	      return ChangeToggle(postTempo);
-  	  } else { 
-  	          roll2 =  roll2 - pToggle;
-  	          if(roll2<pMelody){
-  	          	return ChangeMelody(postTempo);
-  	          } else {
-  	          	return ChangeRhythm(postTempo);
-  	          }
-  	     
-	  
-	  
-	  
-		
-	}
 }
