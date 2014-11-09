@@ -91,4 +91,24 @@ public class Generator{
 		}
 		
 	}
+	
+	//Dummy Methods follow:
+	
+	public void ChangeMelody {
+		
+		//Nothing here~
+		
+	}
+	
+	public void ChangeRhythm {
+		
+		//Nothing here either....
+		
+	}
+	
+	// End Dummy Methods.
+	
+	}
+	}
+	
 }
