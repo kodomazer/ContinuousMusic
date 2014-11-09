@@ -1,4 +1,5 @@
 package storage;
+import javax.sound.midi.ShortMessage;
 
 public class Note {
         public int channel;
@@ -28,6 +29,15 @@ public class Note {
         }
         public void setKey(int newValue) {
                 key = newValue;
+        }
+        
+        public ShortMessage toShortMessage() {
+        	ShortMessage out;
+        	int commandNum;
+        	commandNum = if(isOn) {0x90} else {0x80};
+        	out = new ShortMessage(commandNum, channel, key, velocity);
+        	return out;
+        	
         }
         }
 
