@@ -12,14 +12,25 @@ public class Note {
         public int key;
         // public int offVelocity;
         public int onVelocity;
-        public int onTick;
-        public int offTick;
+        public int tick;
+        public boolean isOn;
         
         public Note(int channel, int key, int onVelocity, int onTick, int offTick)
         
         // public Method
         public void setVo(int newValue) {
+                onVelocity = newValue;
         
+        }
+        public void setTo(int newValue) {
+                onTick = newValue;
+        }
+        public void setTf(int newValue) {
+                offTick = newValue;
+        }
+        public void setKey(int newValue) {
+                key = newValue;
+        }
         }
 
 public class Measure {
@@ -28,5 +39,9 @@ public class Measure {
         
         public Measure(int tempo, Note[] noteArray)
         
-        public void setTempo
-        public void setArray
+        public void setTempo(int newValue) {
+                tempo = newValue;
+        }
+        public void editNote(int index,Note newNote) {
+                noteArray[index] = newNote;
+        }
