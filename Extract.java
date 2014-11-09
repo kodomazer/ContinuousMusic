@@ -7,15 +7,38 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
+import Measure;
+import Note;
+
 public class Extract {
     public static final int NOTE_ON = 0x90;
     public static final int NOTE_OFF = 0x80;
     public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     
-    public midiextract
-    public static void main(String[] args) throws Exception {
+    //public extractnotes midiextract(tick, channel, command, key, velocity){tick = event.getTick(), channel = sm.getChannel(), key = sm.getData1(), velocity = sm.getData2()};
+    
+    //Measure extractnotes;
+    //extractnotes = new Measure ();
+    
+    //Note extract
+    //extract = new Note (tick, channel, command, key, velocity);
+    
+    public static void extractnotes(String[] args) throws Exception {
         Sequence sequence = MidiSystem.getSequence(new File("test.mid"));
-
+        Measure extractnotes;
+        extractnotes = new Measure ();
+    
+        Note extract;
+        
+        int tick;
+        int channel;
+        int key;
+        //int octave;
+        //int note;
+        int velocity;
+        boolean command;
+        
+        
         int trackNumber = 0;
         for (Track track :  sequence.getTracks()) {
             trackNumber++;
@@ -34,15 +57,15 @@ public class Extract {
                         int key = sm.getData1();
                         int octave = (key / 12)-1;
                         int note = key % 12;
-                        String noteName = NOTE_NAMES[note];
+                        //String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
                         boolean command = true;
                         // System.out.println("Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
                     } else if (sm.getCommand() == NOTE_OFF) {
                         int key = sm.getData1();
-                        int octave = (key / 12)-1;
-                        int note = key % 12;
-                        String noteName = NOTE_NAMES[note];
+                        //int octave = (key / 12)-1;
+                        //int note = key % 12;
+                        // String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
                         boolean command = false;
                         // System.out.println("Note off, " + noteName + octave + " key=" + key + " velocity: " + velocity);
@@ -53,7 +76,7 @@ public class Extract {
                     // System.out.println("Other message: " + message.getClass());
                 }
             }
-
+            extract = new Note (tick, channel, command, key, velocity);
             // System.out.println();
         }
 
