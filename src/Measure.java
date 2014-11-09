@@ -14,8 +14,12 @@ public class Measure {
 			tempo = 0;
 			noteList = new LinkedList<Note>();
 	}
-
-
+	public Note noteAt(int index){
+		return noteList.get(index);
+	}
+	public int getTempo(){
+		return tempo;
+	}
 	public void setTempo(int newValue) {
 			tempo = newValue;
 	}
