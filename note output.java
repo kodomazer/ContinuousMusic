@@ -11,21 +11,21 @@ public class Note {
         public int channel;
         public int key;
         // public int offVelocity;
-        public int onVelocity;
+        public int velocity;
         public int tick;
         public boolean isOn;
         
-        public Note(int channel, int key, int onVelocity, int onTick, int offTick)
+        public Note(int tick, int channel, boolean isOn, int key, int velocity);
         
         // public Method
-        public void setVo(int newValue) {
-                onVelocity = newValue;
+        public void setV(int newValue) {
+                velocity = newValue;
         
         }
-        public void setTo(int newValue) {
-                onTick = newValue;
+        public void setTick(int newValue) {
+                tick = newValue;
         }
-        public void setTf(int newValue) {
+        public void setOn(boolean newValue) {
                 offTick = newValue;
         }
         public void setKey(int newValue) {
@@ -35,13 +35,17 @@ public class Note {
 
 public class Measure {
         public int tempo;
-        public Note[] noteArray;
+        public LinkedList() noteList;
         
-        public Measure(int tempo, Note[] noteArray)
+        public Measure(int tempo, LinkedList() noteList)
+        
         
         public void setTempo(int newValue) {
                 tempo = newValue;
         }
         public void editNote(int index,Note newNote) {
-                noteArray[index] = newNote;
+                noteList.set(index, newNote);
+        }
+        public void addNote(Note newNote) {
+                noteList.set(index, newNote)
         }
