@@ -24,6 +24,7 @@ public class RandomChange{
 	  pRhythm = 1 - pToggle - pMelody; /* Probablilities should sum up to 1. */
 	  roll1 = Math.rand();
 	  roll2 = Math.rand();
+	  postTempo = new Measure();
 	  
   	  if(roll1<pTempo){
   	      postTempo = ChangeTempo(initialMeasure);
@@ -36,6 +37,11 @@ public class RandomChange{
   	      return ChangeToggle(postTempo);
   	  } else { 
   	          roll2 =  roll2 - pToggle;
+  	          if(roll2<pMelody){
+  	          	return ChangeMelody(postTempo);
+  	          } else {
+  	          	return ChangeRhythm(postTempo);
+  	          }
   	     
 	  
 	  
