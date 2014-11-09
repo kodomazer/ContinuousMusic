@@ -6,109 +6,97 @@
 *             ChangeRhythm(measure), reorganize the same melody into a different rhythm.
 */
 
-Include Measure
+import storage.Measure;
 
 public class Generator{
-	
-	
+
 	int goalTempo;
 	Measure initialMeasure;
-	Boolean[] instruToggle;
+	boolean[] instruToggle;
 	double cons; //use for tempo change consistency.
 	
 	public Generator(Measure initMeasureIn) {
 	 	goalTempo = initMeasureIn.tempo;
 	 	initialMeasure = initMeasureIn;
-		instruToggle = new Boolean[16];
+		instruToggle = new boolean[16];
 		cons = .70;
 	 }
 	
 	public Measure iterate() {
-	  double pTempo; /* Tempo can be changed independently of others */
-	  double pToggle;
-	  double pMelody;
-	  double pRhythm; /* Only one of these can be changed at once */
-	  double roll1;
-	  double roll2;
-	  Measure postTempo;
-	  
-	  pTempo = 0.2;
-	  pToggle = 0.25;
-	  pMelody = 0.375;
-	  pRhythm = 1 - pToggle - pMelody; /* Probablilities should sum up to 1. */
-	  roll1 = Math.random();
-	  roll2 = Math.random();
-	  postTempo = new Measure();
+	  double pTempo = 0.2; /* Tempo can be changed independently of others */
+	  double pToggle = 0.25;
+	  double pMelody = 0.375;
+	  double pRhythm = 1 - pToggle - pMelody; /* Only one of these can be changed at once */
+	  double roll1= Math.random();
+	  double roll2 = Math.random();
+	  Measure postTempo = new Measure();
 	  
   	  if(roll1<pTempo){
-  	      postTempo = ChangeTempo(initialMeasure);
-  	  } else { 
-  	      postTempo = initialMeasure;
+  	      changeTempo();
   	  }
   	  
   	
   	  if(roll2<pToggle){
-  	      ChangeToggle(postTempo);
+  	      changeToggle();
   	  } else { 
   	          roll2 =  roll2 - pToggle;
   	          if(roll2<pMelody){
-  	          	ChangeMelody(postTempo);
+  	          	changeMelody();
   	          } else {
-  	          	ChangeRhythm(postTempo);
+  	          	changeRhythm();
   	          }
   	  }
   	    return initialMeasure;    
 	}
 	
-	public void ChangeTempo() {
+	public void changeTempo() {
 		double roll;
-		int big;
-		int small;
 		int goFaster;
-		double cons; //consistency of tempo change. 
-		
-		small = 3;
-		big = 20;
-		cons = .7;
-		goFaster = if(initialMeasure.tempo < goalTempo) {1} else {-1};
-		
-		
+		int small = 3;
+		int big = 20;
+		double cons = .7;//consistency of tempo change. 
+		if(initialMeasure.tempo < goalTempo) {
+			goFaster =1;
+		}else {
+			goFaster =-1;
+		}
 		if(initialMeasure.tempo == goalTempo) {
 			if(Math.random()>0.5) {
 				goalTempo = goalTempo + big;
-			} else {
+			}else{
 				goalTempo = goalTempo - big;
 			}
 		} else {
-			goalTempo = goalTempo + small * (int(Math.random()*3)-1);
-			
+			goalTempo = goalTempo + small * (int)(Math.random()*3)-1;
 		}
-		
 		if(Math.random()<cons) { 
 			initialMeasure.setTempo(initialMeasure.tempo + 1 * goFaster);
 		} else { 
-			initialMeasure.setTempo(initialMeaure.tempo - 1 * goFaster);
+			initialMeasure.setTempo(initialMeasure.tempo - 1 * goFaster);
 		}
-		
+
 	}
 	
 	//Dummy Methods follow:
 	
-	public void ChangeMelody {
+	public void changeMelody (){
 		
 		//Nothing here~
 		
 	}
 	
-	public void ChangeRhythm {
+	public void changeRhythm (){
 		
 		//Nothing here either....
 		
 	}
-	
 	// End Dummy Methods.
-	
-	}
-	}
-	
+	public void changeToggle() {
+		int randomNum=(int)(Math.random()*16);
+		if(instruToggle[randomNum] = true) {
+			instruToggle[randomNum] = false; 
+		}else {
+			instruToggle[randomNum] = true; 
+		}
+	}	
 }
