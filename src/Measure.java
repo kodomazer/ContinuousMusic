@@ -1,3 +1,5 @@
+import Note;
+
 public class Measure {
         public int tempo;
         public LinkedList() noteList;
@@ -16,5 +18,5 @@ public class Measure {
                 noteList.set(index, newNote);
         }
         public void addNote(Note newNote) {
-                noteList.set(index, newNote)
+                noteList.addLast(newNote)
         }
