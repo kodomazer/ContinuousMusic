@@ -26,7 +26,7 @@ public class Note {
                 tick = newValue;
         }
         public void setOn(boolean newValue) {
-                offTick = newValue;
+                isOn = newValue;
         }
         public void setKey(int newValue) {
                 key = newValue;
