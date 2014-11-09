@@ -5,6 +5,7 @@
 *             ChangeMelody(measure), change some part of the melody
 *             ChangeRhythm(measure), reorganize the same melody into a different rhythm.
 */
+package run;
 
 import storage.Measure;
 
@@ -16,10 +17,12 @@ public class Generator{
 	double cons; //use for tempo change consistency.
 	
 	public Generator(Measure initMeasureIn) {
+		System.out.println(10);
 	 	goalTempo = initMeasureIn.tempo;
 	 	initialMeasure = initMeasureIn;
 		instruToggle = new boolean[16];
 		cons = .70;
+		
 	 }
 	
 	public Measure iterate() {

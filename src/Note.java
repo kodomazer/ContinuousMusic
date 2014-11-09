@@ -1,5 +1,7 @@
 package storage;
 
+import javax.sound.midi.*;
+
 public class Note {
 	public int channel;
 	public int key;
@@ -33,6 +35,15 @@ public class Note {
 	}
 	public void setKey(int newValue) {
 		key = newValue;
+	}
+	public ShortMessage toShortMessage(){
+		try{
+			ShortMessage out = new ShortMessage(commandNum,channel,key,velocity);
+			return out;
+		}
+		catch (InvalidMidiDataException a){
+			return null;
+		}
 	}
 }
 
