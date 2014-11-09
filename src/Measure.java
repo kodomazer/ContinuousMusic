@@ -2,7 +2,7 @@ import Note;
 
 public class Measure {
         public int tempo;
-        public LinkedList() noteList;
+        public LinkedList noteList;
         
         public Measure(int tempo, LinkedList() noteList);
         public Measure() {
