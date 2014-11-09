@@ -8,6 +8,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
 import Measure;
+import Note;
 
 public class Extract {
     public static final int NOTE_ON = 0x90;
@@ -27,7 +28,16 @@ public class Extract {
         Measure extractnotes;
         extractnotes = new Measure ();
     
-        Note extract
+        Note extract;
+        
+        int tick;
+        int channel;
+        int key;
+        //int octave;
+        //int note;
+        int velocity;
+        boolean command;
+        
         
         int trackNumber = 0;
         for (Track track :  sequence.getTracks()) {
@@ -47,14 +57,14 @@ public class Extract {
                         int key = sm.getData1();
                         int octave = (key / 12)-1;
                         int note = key % 12;
-                        String noteName = NOTE_NAMES[note];
+                        //String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
                         boolean command = true;
                         // System.out.println("Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
                     } else if (sm.getCommand() == NOTE_OFF) {
                         int key = sm.getData1();
-                        int octave = (key / 12)-1;
-                        int note = key % 12;
+                        //int octave = (key / 12)-1;
+                        //int note = key % 12;
                         // String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
                         boolean command = false;
