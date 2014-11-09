@@ -7,23 +7,29 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class Measure {
-        public int tempo;
-        public array notesequence;
-        
-        public Measure(int tempo, array notesequence)
-
-public class Notesequence {
+public class Note {
         public int channel;
         public int key;
         // public int offVelocity;
         public int onVelocity;
         public int onTick;
         public int offTick;
-        }
         
+        public Note(int channel, int key, int onVelocity, int onTick, int offTick)
+        
+        // public Method,
+        }
 
-public class Notes {
+public class Measure {
+        public int tempo;
+        public Note[] noteArray;
+        
+        public Measure(int tempo, Note[] noteArray)
+        
+        public void setTempo
+        public void setArray
+
+public class Extract {
     public static final int NOTE_ON = 0x90;
     public static final int NOTE_OFF = 0x80;
     public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
