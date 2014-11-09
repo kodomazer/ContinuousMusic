@@ -1,3 +1,5 @@
+package storage;
+
 public class Note {
         public int channel;
         public int key;
@@ -6,9 +8,14 @@ public class Note {
         public int tick;
         public boolean isOn;
         
-        public Note(int tick, int channel, boolean isOn, int key, int velocity);
-        
-        // public Method
+        public Note(int tickIn, int channelIn, boolean isOnIn, int keyIn, int velocityIn){
+			tick=tickIn;
+			channel = channelIn;
+			isOn = isOnIn;
+			key=keyIn;
+			velocity=velocityIn;	
+		}
+		// public Method
         public void setV(int newValue) {
                 velocity = newValue;
         
