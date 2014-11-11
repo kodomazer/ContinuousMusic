@@ -84,4 +84,21 @@ public:
 	//Create a method to change this Measure into the equivalent RawMeasure
 	//RawMeasure toRawMeasure(){
 	//}
+	
+	public RawMeasure toRawMeasure() {
+		RawMeasure outMeasure = new RawMeasure();
+		RawNote onNote;
+		RawNote offNote;
+		
+		for(int i=0; i<noteList.size();i++) {
+			onNote = new Note(True, noteList[i].getChannel(), noteList[i].getKey(), noteList[i].getVelocity(), noteList[i].getTick());
+			offNote = new Note(False, noteList[i].getChannel(), noteList[i].getKey(), noteList[i].getVelocity(), noteList[i].getTick()+noteList[i].getDuration());
+			outMeasure.addNote(onNote);
+			outMeasure.addNote(offNote);
+		}
+		outMeasure.setTempo(tempo);
+		outMeasure.setBeats(beatsPerBar);
+		outMeasure.setTicks(ticksPerBeat);
+		return outMeasure;
+	}
 }
