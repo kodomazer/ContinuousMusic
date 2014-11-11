@@ -2,61 +2,43 @@ package storage;
 
 import javax.sound.midi.*;
 
+
+//RawNote is not changeable after creation
 public class RawNote {
-	public int channel;
-	public int key;
-	public int velocity;
-	public int tick;
-	public boolean isOn;
+private:
+	int channel;
+	int key;
+	int velocity;
+	int tick;
+	boolean isOn;
 	int commandNum;
-	// public int offVelocity;
-	//phase out old constructor usage
-	public Note(int tickIn, int channelIn, boolean isOnIn, int keyIn, int velocityIn){
+	
+public:
+	Note(boolean isOnIn,int channelIn,int keyIn,int velocityIn,int tickIn){
 		tick=tickIn;
 		channel = channelIn;
 		setOn(isOnIn);
 		key=keyIn;
 		velocity=velocityIn;
 	}
-	
-	//New constructor
-	public Note(boolean isOnIn,int channelIn,int keyIn,int velocityIn,int tickIn){
-		tick=tickIn;
-		channel = channelIn;
-		setOn(isOnIn);
-		key=keyIn;
-		velocity=velocityIn;
-	}
-	
-	// public Method
-	//Methods to set fields
-	public void setVelocity(int newValue) {
-		velocity = newValue;
-	}
-	public void setTick(int newValue) {
-		tick = newValue;
-	}
-	public void setOn(boolean newValue) {
-		isOn = newValue;
-		if(isOn){
-			commandNum = 0x90;
-		} else{
-			commandNum = 0x80;
-		}
-	}
-	public void setKey(int newValue) {
-		key = newValue;
-	}
-	
 	//Methods to get fields
-	public int getChannel(){
+	int getChannel(){
 		return channel;
 	}
-	public int getNote(){
+	
+	int getKey(){
 		return key;
 	}
 	
+	int getVelocity(){
+		return velocity;
+	}
 	
+	int getTick(){
+		return tick;
+	}
+	
+	//returns a MidiCommand, that represents the RawNote, to be used in the player
 	public ShortMessage toShortMessage(){
 		try{
 			ShortMessage out = new ShortMessage(commandNum,channel,key,velocity);

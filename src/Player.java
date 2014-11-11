@@ -1,17 +1,17 @@
 package run;
 
 import javax.sound.midi.*;
-import storage.Note;
-import storage.Measure;
+import storage.RawNote;
+import storage.RawMeasure;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Player{
-	LinkedBlockingDeque<Measure> inputQueue=new LinkedBlockingDeque<Measure>();
-	Measure currentMeasure=null;
+	LinkedBlockingDeque<RawMeasure> inputQueue=new LinkedBlockingDeque<RawMeasure>();
+	RawMeasure currentMeasure=null;
 	int tick=0;
 	long lastT=0;
 	int deltaT=0;
-	int[] index=new int[16];
+	int index=0;
 	Receiver rec;
 	
 	public Player(){
@@ -29,13 +29,13 @@ public class Player{
 			while(index<currentMeasure.size()){
 				if(System.currentTimeMillis()-lastT>deltaT){
 					lastT=System.currentTimeMillis();
-					//while(tick<=currentMeasure.noteAt(index).tick){
+					while(tick<=currentMeasure.noteAt(index).tick){
 						Note h=currentMeasure.noteAt(index);
 						rec.send(currentMeasure.messageAt(index),initialTime-lastT);
 						index++;
 						if(index==32)break;
 						if(currentMeasure.size()==0);
-					//}
+					}
 					tick++;
 					
 				}

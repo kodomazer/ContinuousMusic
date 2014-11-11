@@ -3,68 +3,77 @@ package storage;
 import javax.sound.midi.*;
 
 public class Note{
-	public int channel;
-	public int key;
-	public int velocity;
-	public int tick;
-	public boolean isOn;
-	int commandNum;
+private:
+	int channel;
+	int key;
+	int velocity;
+	int tick;
+	int duration;
+	
+	
+public:
 	// public int offVelocity;
 	//phase out old constructor usage
 	public Note(int tickIn, int channelIn, boolean isOnIn, int keyIn, int velocityIn){
+		System.out.println("WARNING: Usage of old constructor: storage.Note");
 		tick=tickIn;
 		channel = channelIn;
-		setOn(isOnIn);
 		key=keyIn;
+		duration=0;
 		velocity=velocityIn;
 	}
 	
 	//New constructor
-	public Note(boolean isOnIn,int channelIn,int keyIn,int velocityIn,int tickIn){
+	public Note(int durationIn,int channelIn,int keyIn,int velocityIn,int tickIn){
 		tick=tickIn;
 		channel = channelIn;
-		setOn(isOnIn);
+		duration=durationIn;
 		key=keyIn;
 		velocity=velocityIn;
 	}
 	
 	// public Method
 	//Methods to set fields
-	public void setVelocity(int newValue) {
-		velocity = newValue;
+	void setChannel(int newValue){
+		if(newValue<16&&newValue>=0)
+			channel=newValue;
 	}
-	public void setTick(int newValue) {
-		tick = newValue;
-	}
-	public void setOn(boolean newValue) {
-		isOn = newValue;
-		if(isOn){
-			commandNum = 0x90;
-		} else{
-			commandNum = 0x80;
-		}
-	}
-	public void setKey(int newValue) {
+	
+	void setKey(int newValue) {
 		key = newValue;
 	}
 	
+	public void setVelocity(int newValue) {
+		velocity = newValue;
+	}
+	
+	public void setTick(int newValue) {
+		tick = newValue;
+	}
+	
+	void setDuration(int newValue){
+		duration=newValue;
+	}
+	
 	//Methods to get fields
-	public int getChannel(){
+	int getChannel(){
 		return channel;
 	}
-	public int getNote(){
+	
+	int getKey(){
 		return key;
 	}
 	
-	//Artifacts from RawNote
-	public ShortMessage toShortMessage(){
-		try{
-			ShortMessage out = new ShortMessage(commandNum,channel,key,velocity);
-			return out;
-		}
-		catch (InvalidMidiDataException a){
-			return null;
-		}
+	int getVelocity(){
+		return velocity;
+	}
+	
+	int getTick(){
+		return tick;
+	}
+	
+	int getDuration(){
+		return duration;
 	}
 }
 
