@@ -21,7 +21,7 @@ public class Main{
 	}
 	public static Measure test(){
 		Measure out=new Measure();
-		out.setTempo(50);
+		out.setTempo(60);
 		int[] key = new int[32];
 		int[] tick= new int[32];
 		for(int i=0;i<16;i++){

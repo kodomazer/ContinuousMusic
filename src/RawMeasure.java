@@ -1,13 +1,13 @@
 package storage;
 import java.util.*;
+import storage.RawNote;
 import storage.Note;
 import javax.sound.midi.*;
 
-
-public class Measure {
+public class RawMeasure {
 	public int tempo;
-	public LinkedList<Note>[] noteList;
-	//Artifact from RawMeasure for the player, unsure if to be used in Measure
+	public LinkedList<RawNote>[] noteList;
+	
 	public boolean isMore(int[] index){
 		boolean more=false;
 		for(int i=0;i<16;i++)
@@ -15,8 +15,8 @@ public class Measure {
 				more=true;
 		return more;
 	}
-	//constructors
-	public Measure(int tempoIn,LinkedList<Note>[] noteListIn){
+	//Constructor should have noteListIn.length() be 16
+	public Measure(int tempoIn,LinkedList<RawNote>[] noteListIn){
 		tempo=tempoIn;
 		noteList=noteListIn;
 	}
@@ -24,17 +24,17 @@ public class Measure {
 	public Measure() {
 		tempo = 120;
 		for(int i=0;i<16;i++)
-			noteList[i] = new LinkedList<Note>();
+			noteList[i] = new LinkedList<RawNote>();
 	}
 	
 	
-	public Note noteAt(int index){//old method, should be phased out
-		System.out.println("Warning: Usage of old method.\nMethod: noteAt in storage.Measure");
+	public RawNote noteAt(int index){//old method, should be phased out
+		System.out.println("Warning: Usage of old method.\nMethod: noteAt in storage.RawMeasure");
 		return noteList[0].get(index);
 	}
 	
 	
-	public Note noteAt(int channel,int index){//new method, use this one
+	public RawNote noteAt(int channel,int index){//new method, use this one
 		return noteList[channel].get(index);
 	}
 	public int getTempo(){
@@ -43,23 +43,22 @@ public class Measure {
 	public void setTempo(int newValue) {
 		tempo = newValue;
 	}
-	public void editNote(int index,Note newNote) {
+	public void editNote(int index,RawNote newNote) {
 		noteList[newNote.getChannel()].set(index, newNote);
 	}
-	public void addNote(Note newNote) {
+	public void addNote(RawNote newNote) {
 		noteList[newNote.getChannel()].addLast(newNote);
 	}//*
-	/*messageAt unneeded
+	
 	//old method, phase out
 	public ShortMessage messageAt(int index){
 		System.out.println("Warning: Usage of old method.\nMethod: messageAt in storage.Measure");
 		return noteList[0].get(index).toShortMessage();
-	
-	}
+	}//*/
 	
 	
 	public ShortMessage messageAt(int channel,int index){
 		return noteList[channel].get(index).toShortMessage();
 	}
-	//*/
+	
 }
