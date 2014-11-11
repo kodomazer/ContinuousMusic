@@ -11,21 +11,22 @@ public class Player{
 	int tick=0;
 	long lastT=0;
 	int deltaT=0;
-	int[] index=new int[16];
+	int index=0;
 	Receiver rec;
 	
 	public Player(){
-		try{
-			rec = MidiSystem.getReceiver();
-		}
-		catch(MidiUnavailableException a){
-			rec = null;
-		}
+	try{
+		rec = MidiSystem.getReceiver();
+	}
+	catch(MidiUnavailableException a){
+		rec = null;
+	}
 	}
 	
 	public void play(){
+		
 		long initialTime=System.currentTimeMillis();
-		while(inputQueue.size()>0){
+		while(true){
 			while(index<currentMeasure.size()){
 				if(System.currentTimeMillis()-lastT>deltaT){
 					lastT=System.currentTimeMillis();
@@ -43,13 +44,11 @@ public class Player{
 			if(inputQueue.peek() instanceof Measure)
 				currentMeasure=inputQueue.remove();
 			else break;
-			int newDeltaT=(int)(60./currentMeasure.getTempo()*1000.);
-			if(newDeltaT-deltaT>50)
-				deltaT+=50;
-			else if(newDeltaT-deltaT<50)
-				deltaT-=50;
-			else 
-				deltaT=newDeltaT;
+			int newDeltaT=(int)(100./currentMeasure.getTempo()*100.);
+			//if(newDeltaT-deltaT>50)deltaT+=50;
+			//else if(newDeltaT-deltaT<50)deltaT-=50;
+			//else 
+			deltaT=newDeltaT;
 			if(inputQueue.size()<2) deltaT-=55;
 			
 			tick=0;
@@ -58,7 +57,7 @@ public class Player{
 	}
 	public void changeCurrentMeasure(Measure nextMesure){
 		currentMeasure=nextMesure;
-		deltaT=(int)(60000./currentMeasure.getTempo());
+		deltaT=(int)(6000./currentMeasure.getTempo());
 	}
 	
 	public void addToQueue(Measure newMeasure){
