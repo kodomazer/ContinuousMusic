@@ -6,64 +6,85 @@ import storage.RawMeasure;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Player{
+private:
 	LinkedBlockingDeque<RawMeasure> inputQueue=new LinkedBlockingDeque<RawMeasure>();
 	RawMeasure currentMeasure=null;
 	int tick=0;
+	int ticksPerMeasure=0;
 	long lastT=0;
 	int deltaT=0;
 	int index=0;
 	Receiver rec;
 	
-	public Player(){
+public:
+	Player(){
 		try{
 			rec = MidiSystem.getReceiver();
-		}
+		}s
 		catch(MidiUnavailableException a){
 			rec = null;
 		}
 	}
 	
-	public void play(){
+	
+	//Start playing music
+	void play(){
 		long initialTime=System.currentTimeMillis();
 		while(inputQueue.size()>0){
-			while(index<currentMeasure.size()){
+			while(ticks!=ticksPerMeasure){
 				if(System.currentTimeMillis()-lastT>deltaT){
 					lastT=System.currentTimeMillis();
-					while(tick<=currentMeasure.noteAt(index).tick){
-						Note h=currentMeasure.noteAt(index);
+					while(index<currentMeasure.size()&&tick<=currentMeasure.noteAt(index).getTick()){
 						rec.send(currentMeasure.messageAt(index),initialTime-lastT);
 						index++;
-						if(index==32)break;
-						if(currentMeasure.size()==0);
+						if(index==currentMeasure.size())
+							break;
 					}
 					tick++;
-					
 				}
 			}
-			if(inputQueue.peek() instanceof Measure)
-				currentMeasure=inputQueue.remove();
-			else break;
-			int newDeltaT=(int)(60./currentMeasure.getTempo()*1000.);
-			if(newDeltaT-deltaT>50)
-				deltaT+=50;
-			else if(newDeltaT-deltaT<50)
-				deltaT-=50;
-			else 
-				deltaT=newDeltaT;
-			if(inputQueue.size()<2) deltaT-=55;
-			
+			nextMeasure();
 			tick=0;
 			index=0;
 		}
 	}
-	public void changeCurrentMeasure(Measure nextMesure){
-		currentMeasure=nextMesure;
-		deltaT=(int)(60000./currentMeasure.getTempo());
+private: //internal methods
+	boolean nextMeasure(){
+		currentMeasure=new RawMeasure(inputQueue.remove(),currentMeasure);
+		stepTime();
+		ticksPerMeasure=currentMeasure.getBeats()*currentMeasure.getTicks();
 	}
 	
-	public void addToQueue(Measure newMeasure){
-		System.out.println("addToQueueCalled");
+	void stepTime(){
+		int newDeltaT=60000/currentMeasure.getTempo()/currentMeasure.getTicks();
+		if(newDeltaT-deltaT>5)
+				deltaT+=5;
+			else if(newDeltaT-deltaT<5)
+				deltaT-=5;
+				deltaT=newDeltaT;
+			if(inputQueue.size()<10) deltaT-=7;
+			
+	}
+	
+	void setTime(){
+		int newDeltaT=60000/currentMeasure.getTempo()/currentMeasure.getTicks();
+	}
+	
+public: //external field changes
+	void setTime(int newTime){
+		deltaT=newTime;
+	}
+	void changeCurrentMeasure(Measure nextMesure){
+		currentMeasure=nextMesure;
+		setTime();
+		ticksPerMeasure=currentMeasure.getTicks()*currentMeasure.getBeats();
+	}
+	
+	//used by generator to add measures to the queue
+	void addToQueue(Measure newMeasure){
 		inputQueue.add(newMeasure);
 	}
+	
+	
 
 }
